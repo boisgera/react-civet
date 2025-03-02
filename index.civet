@@ -2,6 +2,7 @@
 
 import React from "react"
 import { createRoot } from 'react-dom/client'
+import {MathJaxContext, MathJax} from "better-react-mathjax"
 
 type RFC = React.FC<any>
 
@@ -80,6 +81,29 @@ App : RFC := () =>
   <Button>Click moi!</Button>
   <LoremIpsum />
   <KeypadAndCode />
+  <Math />
+
+r := String.raw
+
+Math : RFC := () =>
+  formula_0 := r`\int_{-\infty}^\infty e^{-x^2} dx = \sqrt{\pi}`
+  [formula, setFormula] := React.useState(formula_0)
+
+  <MathJaxContext>
+    <p>
+    <input 
+      type="text" 
+      value={formula} 
+      onChange={(e) => setFormula(e.target.value)}
+      style={{"fontSize": "2rem"}}
+    />
+    </p>
+    <p style={{"fontSize": "5rem"}}>
+    <MathJax>
+    {r`\[${formula}\]`}
+    </MathJax>
+    </p>
+  </MathJaxContext>
 
 root = document.getElementById("root") |> createRoot
 root.render <App />

@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "civet -c *.civet -o .tsx && esbuild index.tsx --outfile=index.js --bundle --format=esm",
-    "clean": "rm -rf *.tsx *.jsx *.js"
+    "clean": "rm -rf *.tsx *.jsx *.js",
+    "watch": "watchexec -r -w index.civet npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "esbuild": "^0.25.0"
   },
   "dependencies": {
+    "better-react-mathjax": "^2.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
