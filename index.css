@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+html {
+    font-family: "Inter", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5em;
+    font-style: normal;
+  }
+
+__button {
+    /* Remove all padding and margins */
+    margin: 0;
+    padding: 0;
+  
+    /* Remove the default border */
+    border: none;
+  
+    /* Remove the background */
+    background: none;
+  
+    /* Remove the default button styling (e.g., in Safari) */
+    appearance: none;
+    -webkit-appearance: none;
+  
+    /* Remove the default focus outline (optional) */
+    outline: none;
+  
+    /* Reset font styles (optional) */
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  
+    /* Remove any other browser-specific styles */
+    box-shadow: none;
+    text-shadow: none;
+    cursor: pointer; /* Optional: Keep the pointer cursor */
+  }

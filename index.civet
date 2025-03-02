@@ -1,0 +1,85 @@
+"civet autoLet coffeeJSX react"
+
+import React from "react"
+import { createRoot } from 'react-dom/client'
+
+type RFC = React.FC<any>
+
+Button : RFC := ({ children }) => 
+  [count, setCount] = React.useState(0)
+  onClick = () => setCount(count + 1)
+  <button {onClick}>
+    <p>Count: {count}</p>
+    {children}
+  </button>
+
+LoremIpsum : RFC := =>
+  <p>
+    Inter is a workhorse of a typeface carefully crafted &amp; designed for a wide range of applications, from detailed user interfaces to marketing & signage. The Inter typeface family features over 2000 glyphs covering 147 languages. Weights range from a delicate thin 100 all the way up to a heavy 900. Each glyph has three dedicated designs for weights 100, 400 and 900 to ensure excellent quality at any weight. Optical size ranges from "text" to "display" and there is a true italic variant. 
+  </p>
+
+Hero : RFC := ({ children }) =>
+  style:=
+    "fontSize": "7rem"
+    "fontWeight": "600"
+    "lineHeight": "7rem"
+  <h1 {style}>{children}</h1>
+
+Digit : RFC := ({number, onClick}) =>
+  [isHovered, setIsHovered] := React.useState(false)
+  [isDown, setIsDown] := React.useState(false)
+  onMouseOver := () => setIsHovered(true) 
+  onMouseOut := () => setIsHovered(false)
+  onMouseDown := () => setIsDown(true)
+  onMouseUp := () => setIsDown(false)
+  _onClick := () => onClick?(number)
+  style :=
+    "fontSize": "inherit" 
+    "fontFamily": "inherit"
+    "lineHeight": "1.5em"
+    height: "2lh"
+    width: "2lh"
+    background: if isHovered then (if isDown then "#95c2ff" else "#cfe2ff") else "#eff6ff"
+    border: "none" 
+    cursor: "pointer"
+    "borderRadius": "0.5lh"
+  <button 
+    {style} 
+    {onMouseOver} {onMouseOut} {onMouseDown} {onMouseUp} onClick={_onClick}
+  >
+    {number}
+  </button>
+
+Keypad : RFC := ({onCodeChange}) =>
+  [code, setCode] := React.useState("")
+  onClick := (n) => 
+    setCode(code + n)
+    onCodeChange?(code + n)
+  <div style={ 
+    "display": "grid"
+    "fontSize": "2rem"
+    "gridTemplateColumns": "repeat(3, auto)" 
+    "gridTemplateRows": "repeat(3, auto)"
+    "width": "max-content"
+    gap: "0.5lh"
+  }>
+    {<Digit key={i} number={i} {onClick} /> for i of [1..9]}
+  </div>
+
+KeypadAndCode : RFC := =>
+  [code, setCode] := React.useState("")
+  onCodeChange := (code) => setCode(code)
+  <div>
+    <Keypad {onCodeChange} />
+    <p>Code: {code}</p>
+  </div>
+
+App : RFC := () => 
+  <Hero>The Inter typeface family</Hero>
+  <Button>Click me</Button>
+  <Button>Click moi!</Button>
+  <LoremIpsum />
+  <KeypadAndCode />
+
+root = document.getElementById("root") |> createRoot
+root.render <App />
