@@ -2,7 +2,8 @@
 
 import React from "react"
 import { createRoot } from 'react-dom/client'
-import {MathJaxContext, MathJax} from "better-react-mathjax"
+import { MathJaxContext, MathJax } from "better-react-mathjax"
+import { createUseStyles } from 'react-jss'
 
 type RFC = React.FC<any>
 
@@ -75,13 +76,7 @@ KeypadAndCode : RFC := =>
     <p>Code: {code}</p>
   </div>
 
-App : RFC := () => 
-  <Hero>The Inter typeface family</Hero>
-  <Button>Click me</Button>
-  <Button>Click moi!</Button>
-  <LoremIpsum />
-  <KeypadAndCode />
-  <Math />
+
 
 r := String.raw
 
@@ -104,6 +99,36 @@ Math : RFC := () =>
     </MathJax>
     </p>
   </MathJaxContext>
+
+useStyles := createUseStyles({
+  "button": {
+    fontSize: "inherit",
+    fontFamily: "inherit",
+    fontWeight: "700",
+    lineHeight: "1.5",
+    height: "2lh",
+    width: "3lh",
+    background: "#000000",
+    color: "#ffffff",
+    border: "none",
+    cursor: "pointer",
+    borderRadius: "0.125lh"
+  }
+})
+
+Button2 : RFC := () =>
+  classes := useStyles()
+  <button className={classes.button}>Click me</button>  
+
+App : RFC := () => 
+  <Hero>The Inter typeface family</Hero>
+  <Button>Click me</Button>
+  <Button>Click moi!</Button>
+  <LoremIpsum />
+  <KeypadAndCode />
+  <Button2 />
+  <Button2 />
+  <Math />
 
 root = document.getElementById("root") |> createRoot
 root.render <App />
